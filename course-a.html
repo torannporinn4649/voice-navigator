@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>変更申請ガイド | 書類記入ナビ</title>
+    <meta name="description" content="変更申請書類の記入方法を音声でガイドします">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="header__title">📝 変更申請</h1>
+            <p class="header__subtitle">委任状2枚の書き方</p>
+        </header>
+
+        <main class="step-content">
+            <!-- プログレスバー -->
+            <div class="progress-bar">
+                <div class="progress-bar__fill" style="width: 11%;"></div>
+            </div>
+
+            <!-- ステップ表示 -->
+            <div class="step-indicator">
+                <span>ステップ</span>
+                <span class="step-indicator__current">1</span>
+                <span>/ <span class="step-indicator__total">9</span></span>
+            </div>
+
+            <!-- 音声コントロール -->
+            <div class="audio-control">
+                <button class="audio-control__btn" onclick="toggleSpeak(stepNavigator.getCurrentStep().voice)"
+                    aria-label="読み上げ">
+                    🔊
+                </button>
+                <span style="font-size: var(--font-size-base);">タップで読み上げ</span>
+            </div>
+
+            <!-- コンテンツ -->
+            <div class="content">
+                <!-- 警告バッジ -->
+                <div class="warning-badge" style="display: none;">✕</div>
+
+                <!-- 画像（プレースホルダー） -->
+                <div class="placeholder-image">
+                    <div class="placeholder-image__icon">📄</div>
+                    <div class="placeholder-image__text">画像を挿入予定</div>
+                </div>
+                <img class="content__image" src="" alt="" style="display: none;">
+
+                <!-- 説明テキスト -->
+                <p class="content__text"></p>
+            </div>
+
+            <!-- ナビゲーション -->
+            <div class="navigation">
+                <button class="btn btn--secondary btn--prev" onclick="goPrev(stepNavigator)"
+                    style="visibility: hidden;">
+                    ← 戻る
+                </button>
+                <button class="btn btn--primary btn--next" onclick="goNext(stepNavigator)">
+                    次へ →
+                </button>
+            </div>
+
+            <!-- 法的注記 -->
+            <div class="legal-notes" style="display: none;">
+                <button class="legal-notes__toggle" onclick="toggleLegalNotes()">
+                    ▶ 法的注意事項を見る
+                </button>
+                <div class="legal-notes__content"></div>
+            </div>
+
+            <!-- ヘルプセクション -->
+            <div class="help-section">
+                <button class="help-btn" onclick="showPhoneModal()">
+                    ❓ どうしてもわからない
+                </button>
+            </div>
+        </main>
+
+        <!-- 完了画面 -->
+        <div class="complete" style="display: none;">
+            <div class="complete__icon">✅</div>
+            <h2 class="complete__title">お疲れ様でした！</h2>
+            <p class="complete__message">
+                これで変更申請の書類は完成です。<br><br>
+                書類を封筒に入れて<br>
+                <strong>返送</strong>してください。
+            </p>
+            <div style="margin-top: var(--spacing-xl);">
+                <a href="index.html" class="btn btn--secondary">
+                    🏠 最初に戻る
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 電話モーダル -->
+    <div class="phone-modal" onclick="closePhoneModal()">
+        <div class="phone-modal__content" onclick="event.stopPropagation()">
+            <h3 class="phone-modal__title">📞 お困りですか？</h3>
+            <p class="phone-modal__message">
+                お電話でご相談いただけます。<br>
+                下のボタンをタップしてください。
+            </p>
+            <a href="tel:0120-XXX-XXX" class="phone-modal__number">
+                📞 0120-XXX-XXX
+            </a>
+            <button class="phone-modal__close" onclick="closePhoneModal()">
+                閉じる
+            </button>
+        </div>
+    </div>
+
+    <!-- 音声許可バナー（iOS用） -->
+    <div class="audio-permission">
+        <p style="font-size: var(--font-size-large); margin-bottom: var(--spacing-sm);">
+            🔊 音声ガイドを有効にしますか？
+        </p>
+        <button class="audio-permission__btn" onclick="enableAudioManually()">
+            音声をオンにする
+        </button>
+    </div>
+
+    <script src="js/speech.js"></script>
+    <script src="js/navigation.js"></script>
+    <script>
+        // コースA: 変更申請のステップ定義
+        const courseASteps = [
+            {
+                text: '変更申請の書類一式を出してください。<br><br>まずは、<strong>表や枠線がない、文字だけの委任状</strong>を1枚手元に置いてください。',
+                voice: '変更申請の書類一式を出してください。まずは、表や枠線がない、文字だけの委任状を1枚手元に置いてください。',
+                image: 'images/illustration_document.png',
+                imageAlt: '委任状のイメージ',
+                showWarning: false
+            },
+            {
+                text: 'その紙の<strong class="warning-text">右上の日付</strong>を見てください。<br><br><span class="warning-text">そこは空欄のままです。<br>ペンを置いてください。</span>',
+                voice: 'その紙の右上の日付を見てください。そこは空欄のままです。ペンを置いてください。書かないでください。',
+                image: 'images/illustration_date_warning.png',
+                imageAlt: '日付欄は空欄のまま',
+                showWarning: true
+            },
+            {
+                text: '<strong>住所と氏名</strong>を書きます。<br><br>必ず<strong>印鑑証明書と同じ</strong>住所・漢字で書いてください。',
+                voice: '住所と氏名を書きます。必ず印鑑証明書と同じ住所、同じ漢字で書いてください。',
+                image: 'images/illustration_name_address.png',
+                imageAlt: '住所・氏名を記入する場所',
+                showWarning: false
+            },
+            {
+                text: '<strong>ハンコ</strong>を用意してください。<br><br>確認です。<br>それは<strong class="warning-text">役所に登録した実印</strong>ですか？<br><span style="color: var(--danger);">（認印は不可）</span>',
+                voice: 'ハンコを用意してください。確認です。それは役所に登録した実印ですか？認印は使えません。実印を用意してください。',
+                image: 'images/illustration_stamp.png',
+                imageAlt: '実印確認',
+                showWarning: false,
+                legalNote: '※照会案件毎に委任状を添付してください。'
+            },
+            {
+                text: 'きれいに押せましたか？<br><br><strong class="warning-text">かすれや欠け</strong>はありませんか？',
+                voice: 'きれいに押せましたか？かすれや欠けはありませんか？もし失敗したら、新しい紙にやり直してください。',
+                image: 'images/illustration_stamp.png',
+                imageAlt: '印影確認',
+                showWarning: false,
+                legalNote: '※複数枚にわたる場合には、それぞれに委任者の署名・捺印を行ってください。'
+            },
+            {
+                text: '今の書類は置いて、<br><strong>残りのもう1枚の委任状</strong>を出してください。<br><br>真ん中に<strong>「表（枠線）」がある書類</strong>です。',
+                voice: '今の書類は置いて、残りのもう1枚の委任状を出してください。真ん中に表、枠線がある書類です。',
+                image: 'images/illustration_table.png',
+                imageAlt: '表がある委任状のイメージ',
+                showWarning: false
+            },
+            {
+                text: 'この書類も、<strong class="warning-text">右上の日付は空欄のまま</strong>です。',
+                voice: 'この書類も、右上の日付は空欄のままです。書かないでください。',
+                image: 'images/illustration_date_warning.png',
+                imageAlt: '日付欄は空欄のまま',
+                showWarning: true
+            },
+            {
+                text: '上の欄に、<strong>住所・氏名</strong>を書き、<br><strong>実印</strong>を押してください。',
+                voice: '上の欄に、住所と氏名を書き、実印を押してください。',
+                image: 'images/illustration_name_address.png',
+                imageAlt: '住所・氏名・捺印欄',
+                showWarning: false
+            },
+            {
+                text: '真ん中にある「対象事業計画」という<strong>表</strong>を見てください。<br><br><strong class="warning-text" style="font-size: var(--font-size-xlarge);">ここは何も書かないでください。</strong><br>全て空欄のままでOKです。',
+                voice: '真ん中にある対象事業計画という表を見てください。ここは何も書かないでください。全て空欄のままでオーケーです。',
+                image: 'images/illustration_table.png',
+                imageAlt: '表は空欄のまま',
+                showWarning: false,
+                legalNote: '※申請毎に委任状を添付すること。委任をされる事業者が同じ場合であり、かつ、手続区分が同一の場合に限り、一つの委任状にて、複数の申請を行うことが出来る。ただし、一枚に記載することが出来ない場合、一枚に収まる設備ID分のみを記入し、残りの設備IDについて、同様式を別途作成すること。'
+            }
+        ];
+
+        // ナビゲーター初期化
+        const stepNavigator = new StepNavigator(courseASteps);
+
+        // 初期表示
+        window.onload = function () {
+            renderStep(stepNavigator);
+        };
+    </script>
+</body>
+
+</html>

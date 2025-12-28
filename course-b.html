@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>新規申請ガイド | 書類記入ナビ</title>
+    <meta name="description" content="新規申請書類の記入方法を音声でガイドします">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="header__title">📋 新規申請</h1>
+            <p class="header__subtitle">委任状と同意書の書き方</p>
+        </header>
+
+        <main class="step-content">
+            <!-- プログレスバー -->
+            <div class="progress-bar">
+                <div class="progress-bar__fill" style="width: 14%;"></div>
+            </div>
+
+            <!-- ステップ表示 -->
+            <div class="step-indicator">
+                <span>ステップ</span>
+                <span class="step-indicator__current">1</span>
+                <span>/ <span class="step-indicator__total">7</span></span>
+            </div>
+
+            <!-- 音声コントロール -->
+            <div class="audio-control">
+                <button class="audio-control__btn" onclick="toggleSpeak(stepNavigator.getCurrentStep().voice)"
+                    aria-label="読み上げ">
+                    🔊
+                </button>
+                <span style="font-size: var(--font-size-base);">タップで読み上げ</span>
+            </div>
+
+            <!-- コンテンツ -->
+            <div class="content">
+                <!-- 警告バッジ -->
+                <div class="warning-badge" style="display: none;">✕</div>
+
+                <!-- 画像（プレースホルダー） -->
+                <div class="placeholder-image">
+                    <div class="placeholder-image__icon">📄</div>
+                    <div class="placeholder-image__text">画像を挿入予定</div>
+                </div>
+                <img class="content__image" src="" alt="" style="display: none;">
+
+                <!-- 説明テキスト -->
+                <p class="content__text"></p>
+            </div>
+
+            <!-- ナビゲーション -->
+            <div class="navigation">
+                <button class="btn btn--secondary btn--prev" onclick="goPrev(stepNavigator)"
+                    style="visibility: hidden;">
+                    ← 戻る
+                </button>
+                <button class="btn btn--primary btn--next" onclick="goNext(stepNavigator)">
+                    次へ →
+                </button>
+            </div>
+
+            <!-- 法的注記 -->
+            <div class="legal-notes" style="display: none;">
+                <button class="legal-notes__toggle" onclick="toggleLegalNotes()">
+                    ▶ 法的注意事項を見る
+                </button>
+                <div class="legal-notes__content"></div>
+            </div>
+
+            <!-- ヘルプセクション -->
+            <div class="help-section">
+                <button class="help-btn" onclick="showPhoneModal()">
+                    ❓ どうしてもわからない
+                </button>
+            </div>
+        </main>
+
+        <!-- 完了画面 -->
+        <div class="complete" style="display: none;">
+            <div class="complete__icon">✅</div>
+            <h2 class="complete__title">お疲れ様でした！</h2>
+            <p class="complete__message">
+                これで新規申請の書類は完成です。<br><br>
+                書類を封筒に入れて<br>
+                <strong>返送</strong>してください。
+            </p>
+            <div style="margin-top: var(--spacing-xl);">
+                <a href="index.html" class="btn btn--secondary">
+                    🏠 最初に戻る
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 電話モーダル -->
+    <div class="phone-modal" onclick="closePhoneModal()">
+        <div class="phone-modal__content" onclick="event.stopPropagation()">
+            <h3 class="phone-modal__title">📞 お困りですか？</h3>
+            <p class="phone-modal__message">
+                お電話でご相談いただけます。<br>
+                下のボタンをタップしてください。
+            </p>
+            <a href="tel:0120-XXX-XXX" class="phone-modal__number">
+                📞 0120-XXX-XXX
+            </a>
+            <button class="phone-modal__close" onclick="closePhoneModal()">
+                閉じる
+            </button>
+        </div>
+    </div>
+
+    <!-- 音声許可バナー（iOS用） -->
+    <div class="audio-permission">
+        <p style="font-size: var(--font-size-large); margin-bottom: var(--spacing-sm);">
+            🔊 音声ガイドを有効にしますか？
+        </p>
+        <button class="audio-permission__btn" onclick="enableAudioManually()">
+            音声をオンにする
+        </button>
+    </div>
+
+    <script src="js/speech.js"></script>
+    <script src="js/navigation.js"></script>
+    <script>
+        // コースB: 新規申請のステップ定義
+        const courseBSteps = [
+            {
+                text: '新規申請の書類一式を出してください。<br><br>その中から、<strong>「委任状」と書かれた紙</strong>を1枚だけ、目の前に置いてください。',
+                voice: '新規申請の書類一式を出してください。その中から、委任状と書かれた紙を1枚だけ、目の前に置いてください。',
+                image: 'images/illustration_document.png',
+                imageAlt: '委任状のイメージ',
+                showWarning: false
+            },
+            {
+                text: 'その紙の、<strong class="warning-text">右上の日付</strong>を見てください。<br><br><span class="warning-text">そこは空欄のままです。<br>ペンで書かないでください。</span>',
+                voice: 'その紙の右上の日付を見てください。そこは空欄のままです。ペンで書かないでください。',
+                image: 'images/illustration_date_warning.png',
+                imageAlt: '日付欄は空欄のまま',
+                showWarning: true
+            },
+            {
+                text: '<strong>住所と氏名</strong>を書きます。<br><br>必ず<strong>印鑑証明書と同じ</strong>住所・漢字で書いてください。',
+                voice: '住所と氏名を書きます。必ず印鑑証明書と同じ住所、同じ漢字で書いてください。',
+                image: 'images/illustration_name_address.png',
+                imageAlt: '住所・氏名を記入する場所',
+                showWarning: false
+            },
+            {
+                text: '<strong>ハンコ</strong>を用意してください。<br><strong class="warning-text">実印</strong>ですか？<br><br>きれいに押せましたか？',
+                voice: 'ハンコを用意してください。実印ですか？役所に届けた印鑑を使ってください。きれいに押せましたか？',
+                image: 'images/illustration_stamp.png',
+                imageAlt: '実印を押す場所',
+                showWarning: false,
+                legalNote: '※申請毎に委任状を添付すること。一つの委任状において、複数の申請内容を記載しないこと。<br>※複数枚にわたる場合には、それぞれに委任者の署名・捺印を行うこと。'
+            },
+            {
+                text: '次に、<strong>「同意書」と書かれた紙</strong>を出してください。',
+                voice: '次に、同意書と書かれた紙を出してください。',
+                image: 'images/illustration_consent.png',
+                imageAlt: '同意書のイメージ',
+                showWarning: false
+            },
+            {
+                text: 'この書類も、<strong class="warning-text">日付は空欄のまま</strong>にしてください。',
+                voice: 'この書類も、日付は空欄のままにしてください。書かないでください。',
+                image: 'images/illustration_date_warning.png',
+                imageAlt: '日付欄は空欄のまま',
+                showWarning: true
+            },
+            {
+                text: '「<strong>依頼人</strong>」と「<strong>所有者</strong>」の欄に、<br>あなたの<strong>住所・氏名</strong>を書き、<br><strong>実印</strong>を押してください。',
+                voice: '依頼人と所有者の欄に、あなたの住所と氏名を書き、実印を押してください。',
+                image: 'images/illustration_name_address.png',
+                imageAlt: '依頼人・所有者欄',
+                showWarning: false
+            }
+        ];
+
+        // ナビゲーター初期化
+        const stepNavigator = new StepNavigator(courseBSteps);
+
+        // 初期表示
+        window.onload = function () {
+            renderStep(stepNavigator);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>書類記入ナビ</title>
+  <meta name="description" content="太陽光発電・蓄電池申請書類の記入をサポートする音声ガイドです">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="header__title">📄 書類記入ナビ</h1>
+      <p class="header__subtitle">音声ガイドで書類の書き方をご案内します</p>
+    </header>
+    
+    <main>
+      <h2 style="text-align: center; font-size: var(--font-size-xlarge); margin-bottom: var(--spacing-lg);">
+        どの書類が届きましたか？
+      </h2>
+      
+      <a href="course-a.html" class="course-card" onclick="return confirmNavigation('変更申請')">
+        <div class="course-card__title">📝 変更申請</div>
+        <div class="course-card__description">
+          委任状が<strong>2枚</strong>入っている書類です<br>
+          （文字だけの委任状と、表がある委任状）
+        </div>
+      </a>
+      
+      <a href="course-b.html" class="course-card" onclick="return confirmNavigation('新規申請')">
+        <div class="course-card__title">📋 新規申請</div>
+        <div class="course-card__description">
+          委任状と<strong>同意書</strong>が入っている書類です
+        </div>
+      </a>
+      
+      <div style="text-align: center; margin-top: var(--spacing-xl); color: var(--text-secondary);">
+        <p style="font-size: var(--font-size-base);">
+          💡 わからない場合は、封筒を確認してください
+        </p>
+      </div>
+    </main>
+  </div>
+  
+  <script src="js/speech.js"></script>
+  <script>
+    // ページ読み込み時に音声案内
+    window.onload = function() {
+      setTimeout(() => {
+        voiceNav.speak('こんにちは。書類の書き方をご案内します。変更申請か、新規申請か、届いた書類を選んでください。');
+      }, 800);
+    };
+    
+    function confirmNavigation(courseName) {
+      voiceNav.stop();
+      return true;
+    }
+  </script>
+</body>
+</html>
