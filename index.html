@@ -1,24 +1,167 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>書類記入ナビ</title>
   <meta name="description" content="太陽光発電・蓄電池申請書類の記入をサポートする音声ガイドです">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* 説明ページ専用スタイル */
+    .intro-section {
+      background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+      border-radius: var(--button-radius);
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      border: 2px solid var(--primary);
+    }
+
+    .intro-title {
+      font-size: var(--font-size-large);
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: var(--spacing-sm);
+      font-weight: bold;
+    }
+
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-xs);
+      margin: var(--spacing-md) 0;
+      flex-wrap: wrap;
+    }
+
+    .flow-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--spacing-sm);
+      background: white;
+      border-radius: 12px;
+      min-width: 70px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .flow-icon {
+      font-size: 32px;
+      margin-bottom: 4px;
+    }
+
+    .flow-label {
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--text-primary);
+    }
+
+    .flow-arrow {
+      font-size: 24px;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .intro-text {
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      text-align: center;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .highlight-box {
+      background: white;
+      border-left: 4px solid var(--primary);
+      padding: var(--spacing-sm);
+      margin: var(--spacing-sm) 0;
+      font-size: var(--font-size-base);
+    }
+
+    .intro-buttons {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-md);
+    }
+
+    .intro-buttons .btn {
+      flex: 1;
+    }
+
+    /* 画面切り替え */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+  </style>
 </head>
+
 <body>
   <div class="container">
     <header class="header">
       <h1 class="header__title">📄 書類記入ナビ</h1>
-      <p class="header__subtitle">音声ガイドで書類の書き方をご案内します</p>
     </header>
-    
-    <main>
-      <h2 style="text-align: center; font-size: var(--font-size-xlarge); margin-bottom: var(--spacing-lg);">
+
+    <!-- 説明画面 -->
+    <main id="introScreen" class="screen active">
+      <section class="intro-section">
+        <h2 class="intro-title">📋 この書類は何ですか？</h2>
+
+        <p class="intro-text">
+          太陽光発電の設置には<br>
+          <strong style="color: var(--primary); font-size: var(--font-size-large);">国への届出</strong>が必要です
+        </p>
+
+        <div class="flow-diagram">
+          <div class="flow-item">
+            <span class="flow-icon">🏠</span>
+            <span class="flow-label">あなた</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">
+            <span class="flow-icon">🏢</span>
+            <span class="flow-label">当社</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">
+            <span class="flow-icon">🏛️</span>
+            <span class="flow-label">国</span>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          この書類は、<strong>あなたに代わって</strong><br>
+          当社が国に届出を行うための<br>
+          <strong style="color: var(--primary);">「委任状」</strong>です
+        </div>
+
+        <p class="intro-text" style="font-size: 14px; color: var(--text-secondary);">
+          ※ 法律で届出が義務付けられています
+        </p>
+      </section>
+
+      <div class="audio-control">
+        <button id="playIntroBtn" class="audio-control__btn" onclick="playIntroVoice()">
+          🔊
+        </button>
+        <span style="font-size: 14px; color: var(--text-secondary);">音声で聞く</span>
+      </div>
+
+      <button class="btn btn--primary" onclick="showCourseSelection()">
+        わかりました、次へ進む →
+      </button>
+    </main>
+
+    <!-- コース選択画面 -->
+    <main id="courseScreen" class="screen">
+      <h2 style="text-align: center; font-size: var(--font-size-large); margin-bottom: var(--spacing-md);">
         どの書類が届きましたか？
       </h2>
-      
+
       <a href="course-a.html" class="course-card" onclick="return confirmNavigation('変更申請')">
         <div class="course-card__title">📝 変更申請</div>
         <div class="course-card__description">
@@ -26,30 +169,51 @@
           （文字だけの委任状と、表がある委任状）
         </div>
       </a>
-      
+
       <a href="course-b.html" class="course-card" onclick="return confirmNavigation('新規申請')">
         <div class="course-card__title">📋 新規申請</div>
         <div class="course-card__description">
           委任状と<strong>同意書</strong>が入っている書類です
         </div>
       </a>
-      
-      <div style="text-align: center; margin-top: var(--spacing-xl); color: var(--text-secondary);">
-        <p style="font-size: var(--font-size-base);">
-          💡 わからない場合は、封筒を確認してください
-        </p>
+
+      <div style="text-align: center; margin-top: var(--spacing-md);">
+        <button class="btn btn--secondary" onclick="showIntro()" style="font-size: 14px; padding: var(--spacing-sm);">
+          ← 説明に戻る
+        </button>
       </div>
     </main>
   </div>
-  
+
   <script src="js/speech.js"></script>
   <script>
+    const introText = 'この書類は何かご説明します。太陽光発電の設置には、国への届出が法律で義務付けられています。この書類は、あなたに代わって、当社が国に届出を行うための委任状です。ご理解いただけましたら、次へ進むボタンを押してください。';
+    
     // ページ読み込み時に音声案内
     window.onload = function() {
       setTimeout(() => {
-        voiceNav.speak('こんにちは。書類の書き方をご案内します。変更申請か、新規申請か、届いた書類を選んでください。');
+        playIntroVoice();
       }, 800);
     };
+    
+    function playIntroVoice() {
+      voiceNav.speak(introText);
+    }
+    
+    function showCourseSelection() {
+      voiceNav.stop();
+      document.getElementById('introScreen').classList.remove('active');
+      document.getElementById('courseScreen').classList.add('active');
+      setTimeout(() => {
+        voiceNav.speak('変更申請か、新規申請か、届いた書類を選んでください。');
+      }, 300);
+    }
+    
+    function showIntro() {
+      voiceNav.stop();
+      document.getElementById('courseScreen').classList.remove('active');
+      document.getElementById('introScreen').classList.add('active');
+    }
     
     function confirmNavigation(courseName) {
       voiceNav.stop();
@@ -57,4 +221,5 @@
     }
   </script>
 </body>
+
 </html>
