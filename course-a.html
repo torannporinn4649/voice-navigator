@@ -187,7 +187,7 @@
                 showWarning: false
             },
             {
-                text: '真ん中にある「対象事業計画」という<strong>表</strong>を見てください。<br><br><strong class="warning-text">ここは何も書かないでください。</strong><br>全て空欄のままでOKです。<br><br><small style="color: var(--text-secondary);">※申請毎に委任状を添付すること<br>※一枚に収まらない場合は別途作成</small>',
+                text: '真ん中にある「対象事業計画」という<strong>表</strong>を見てください。<br><br><strong class="warning-text">ここは何も書かないでください。</strong><br>全て空欄のままでOKです。<br><br><small style="color: var(--text-secondary);">💡 この委任状は1つの申請につき1枚必要です</small>',
                 voice: '真ん中にある対象事業計画という表を見てください。ここは何も書かないでください。全て空欄のままでオーケーです。',
                 image: 'images/illustration_table.png',
                 imageAlt: '表は空欄のまま',
@@ -200,7 +200,14 @@
 
         // 初期表示
         window.onload = function () {
+            // まず画面を表示
             renderStep(stepNavigator);
+            // 少し遅延させてから音声再生（ブラウザの制限対策）
+            setTimeout(() => {
+                if (stepNavigator.getCurrentStep().voice) {
+                    voiceNav.speak(stepNavigator.getCurrentStep().voice);
+                }
+            }, 1000);
         };
     </script>
 </body>
