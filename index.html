@@ -188,30 +188,28 @@
   <script src="js/speech.js"></script>
   <script>
     const introText = 'この書類は何かご説明します。太陽光発電の設置には、国への届出が法律で義務付けられています。この書類は、あなたに代わって、当社が国に届出を行うための委任状です。ご理解いただけましたら、次へ進むボタンを押してください。';
-    
-    // ページ読み込み時に音声案内
-    window.onload = function() {
-      setTimeout(() => {
-        playIntroVoice();
-      }, 800);
+
+    // 音声は🔊ボタンを押したときだけ再生（自動再生オフ）
+    window.onload = function () {
+      // 自動再生しない
     };
-    
+
     function playIntroVoice() {
       voiceNav.speak(introText);
     }
-    
+
     function showCourseSelection() {
       voiceNav.stop();
       document.getElementById('introScreen').classList.remove('active');
       document.getElementById('courseScreen').classList.add('active');
     }
-    
+
     function showIntro() {
       voiceNav.stop();
       document.getElementById('courseScreen').classList.remove('active');
       document.getElementById('introScreen').classList.add('active');
     }
-    
+
     function confirmNavigation(courseName) {
       voiceNav.stop();
       return true;

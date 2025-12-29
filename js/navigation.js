@@ -132,10 +132,7 @@ function renderStep(navigator) {
         }
     }
 
-    // 音声を自動再生
-    if (step.voice) {
-        autoSpeak(step.voice);
-    }
+    // 音声は🔊ボタンを押したときだけ再生（自動再生オフ）
 
     // プログレスバーを更新
     updateProgressBar(navigator);
