@@ -187,14 +187,7 @@
 
         // 初期表示
         window.onload = function () {
-            // まず画面を表示
             renderStep(stepNavigator);
-            // 少し遅延させてから音声再生（ブラウザの制限対策）
-            setTimeout(() => {
-                if (stepNavigator.getCurrentStep().voice) {
-                    voiceNav.speak(stepNavigator.getCurrentStep().voice);
-                }
-            }, 1000);
         };
     </script>
 </body>
