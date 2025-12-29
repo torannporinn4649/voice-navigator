@@ -26,7 +26,7 @@
             <div class="step-indicator">
                 <span>ステップ</span>
                 <span class="step-indicator__current">1</span>
-                <span>/ <span class="step-indicator__total">8</span></span>
+                <span>/ <span class="step-indicator__total">10</span></span>
             </div>
 
             <!-- 音声コントロール -->
@@ -166,8 +166,8 @@
                 showWarning: false
             },
             {
-                text: '次に、<strong>「同意書」と書かれた紙</strong>を出してください。',
-                voice: '次に、同意書と書かれた紙を出してください。',
+                text: '次に、<strong>「土地・建造物の【屋根／屋上】の無償使用に関する同意書」</strong>を出してください。',
+                voice: '次に、土地・建造物の屋根・屋上の無償使用に関する同意書を出してください。',
                 image: 'images/illustration_consent.png',
                 imageAlt: '同意書のイメージ',
                 showWarning: false
@@ -180,11 +180,25 @@
                 showWarning: true
             },
             {
-                text: '「<strong>依頼人</strong>」と「<strong>所有者</strong>」の欄に、<br>あなたの<strong>住所・氏名</strong>を書き、<br><strong>実印</strong>を押してください。',
-                voice: '依頼人と所有者の欄に、あなたの住所と氏名を書き、実印を押してください。',
-                image: 'images/illustration_name_address.png',
+                text: '上部の「<strong>依頼人</strong>」と「<strong>所有者</strong>」の欄に、<br>あなたの<strong>住所・氏名</strong>を書き、<br><strong>実印</strong>を押してください。',
+                voice: '上部の依頼人と所有者の欄に、あなたの住所と氏名を書き、実印を押してください。',
+                image: 'images/illustration_consent.png',
                 imageAlt: '依頼人・所有者欄',
                 showWarning: false
+            },
+            {
+                text: '下の「記」の欄を見てください。<br><br>「<strong class="warning-text">無償使用に同意する土地・建造物</strong>」の欄は<br><strong class="warning-text">何も書かないでください。</strong>',
+                voice: '下の記の欄を見てください。無償使用に同意する土地・建造物の欄は、何も書かないでください。空欄のままでオーケーです。',
+                image: 'images/illustration_consent_no_write.png',
+                imageAlt: '土地・建造物欄は空欄',
+                showWarning: true
+            },
+            {
+                text: '「<strong class="warning-text">同意期間</strong>」の欄も<br><strong class="warning-text">何も書かないでください。</strong><br><br>空欄のままでOKです。',
+                voice: '同意期間の欄も何も書かないでください。空欄のままでオーケーです。',
+                image: 'images/illustration_consent_no_write.png',
+                imageAlt: '同意期間欄は空欄',
+                showWarning: true
             }
         ];
 
