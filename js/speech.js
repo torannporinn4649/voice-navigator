@@ -191,10 +191,10 @@ const voiceNav = new VoiceNavigator();
  * @param {string} text - 読み上げるテキスト
  */
 function autoSpeak(text) {
-  // 少し遅延させてから読み上げ開始
+  // 少し遅延させてから読み上げ開始（iOS対策で長めに）
   setTimeout(() => {
     voiceNav.speak(text);
-  }, 500);
+  }, 1000);
 }
 
 /**
