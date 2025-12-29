@@ -99,46 +99,47 @@ class VoiceNavigator {
       return;
     }
 
-    // 既存の読み上げを停止
-    this.stop();
+    // 既存の読み上げを完全に停止
+    this.synth.cancel();
 
-    this.utterance = new SpeechSynthesisUtterance(text);
-    this.utterance.rate = this.rate;
-    this.utterance.pitch = this.pitch;
-    this.utterance.volume = this.volume;
+    // iOS対策: cancel後に少し待ってから新しい音声を再生
+    setTimeout(() => {
+      this.utterance = new SpeechSynthesisUtterance(text);
+      this.utterance.rate = this.rate;
+      this.utterance.pitch = this.pitch;
+      this.utterance.volume = this.volume;
 
-    if (this.voice) {
-      this.utterance.voice = this.voice;
-    }
-    this.utterance.lang = 'ja-JP';
+      if (this.voice) {
+        this.utterance.voice = this.voice;
+      }
+      this.utterance.lang = 'ja-JP';
 
-    this.utterance.onstart = () => {
-      this.isPlaying = true;
-      this.updatePlayButton(true);
-    };
+      this.utterance.onstart = () => {
+        this.isPlaying = true;
+        this.updatePlayButton(true);
+      };
 
-    this.utterance.onend = () => {
-      this.isPlaying = false;
-      this.updatePlayButton(false);
-      if (onEnd) onEnd();
-    };
+      this.utterance.onend = () => {
+        this.isPlaying = false;
+        this.updatePlayButton(false);
+        if (onEnd) onEnd();
+      };
 
-    this.utterance.onerror = (e) => {
-      console.error('Speech error:', e);
-      this.isPlaying = false;
-      this.updatePlayButton(false);
-    };
+      this.utterance.onerror = (e) => {
+        console.error('Speech error:', e);
+        this.isPlaying = false;
+        this.updatePlayButton(false);
+      };
 
-    this.synth.speak(this.utterance);
+      this.synth.speak(this.utterance);
+    }, 100);
   }
 
   /**
    * 読み上げを停止
    */
   stop() {
-    if (this.synth.speaking) {
-      this.synth.cancel();
-    }
+    this.synth.cancel();
     this.isPlaying = false;
     this.updatePlayButton(false);
   }
