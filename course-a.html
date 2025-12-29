@@ -101,18 +101,39 @@
         </div>
     </div>
 
-    <!-- 電話モーダル -->
-    <div class="phone-modal" onclick="closePhoneModal()">
+    <!-- ヘルプモーダル（1段階目：確認） -->
+    <div class="phone-modal" id="helpModal1" onclick="closeHelpModal()">
         <div class="phone-modal__content" onclick="event.stopPropagation()">
-            <h3 class="phone-modal__title">📞 お困りですか？</h3>
+            <h3 class="phone-modal__title">❓ 本当にわからないですか？</h3>
             <p class="phone-modal__message">
-                お電話でご相談いただけます。<br>
-                下のボタンをタップしてください。
+                もう一度、説明を読み直してみてください。<br><br>
+                それでもわからない場合は、<br>
+                下のボタンを押してください。
             </p>
-            <a href="tel:0120-XXX-XXX" class="phone-modal__number">
-                📞 0120-XXX-XXX
+            <button class="btn btn--primary" onclick="showHelpModal2()" style="margin-bottom: var(--spacing-sm);">
+                はい、問い合わせたい
+            </button>
+            <button class="phone-modal__close" onclick="closeHelpModal()">
+                戻る
+            </button>
+        </div>
+    </div>
+
+    <!-- ヘルプモーダル（2段階目：連絡先表示） -->
+    <div class="phone-modal" id="helpModal2" onclick="closeHelpModal()">
+        <div class="phone-modal__content" onclick="event.stopPropagation()">
+            <h3 class="phone-modal__title">📞 お問い合わせ</h3>
+            <p class="phone-modal__message">
+                下記にご連絡ください。
+            </p>
+            <a href="tel:080-1944-0234" class="phone-modal__number">
+                📞 080-1944-0234
             </a>
-            <button class="phone-modal__close" onclick="closePhoneModal()">
+            <a href="mailto:info@sanjininc.com" class="phone-modal__number"
+                style="background: #0052CC; margin-top: var(--spacing-sm);">
+                ✉️ info@sanjininc.com
+            </a>
+            <button class="phone-modal__close" onclick="closeHelpModal()" style="margin-top: var(--spacing-md);">
                 閉じる
             </button>
         </div>

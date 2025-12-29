@@ -206,24 +206,34 @@ function updateProgressBar(navigator) {
 }
 
 /**
- * 電話モーダルを表示
+ * ヘルプモーダル1段階目を表示
  */
 function showPhoneModal() {
-    const modal = document.querySelector('.phone-modal');
+    const modal = document.getElementById('helpModal1');
     if (modal) {
         modal.classList.add('is-open');
-        voiceNav.speak('お電話でのご相談も承っております。下の緑のボタンをタップしてください。');
     }
 }
 
 /**
- * 電話モーダルを閉じる
+ * ヘルプモーダル2段階目を表示
  */
-function closePhoneModal() {
-    const modal = document.querySelector('.phone-modal');
+function showHelpModal2() {
+    document.getElementById('helpModal1').classList.remove('is-open');
+    const modal = document.getElementById('helpModal2');
     if (modal) {
-        modal.classList.remove('is-open');
+        modal.classList.add('is-open');
     }
+}
+
+/**
+ * ヘルプモーダルを閉じる
+ */
+function closeHelpModal() {
+    const modal1 = document.getElementById('helpModal1');
+    const modal2 = document.getElementById('helpModal2');
+    if (modal1) modal1.classList.remove('is-open');
+    if (modal2) modal2.classList.remove('is-open');
     voiceNav.stop();
 }
 
