@@ -165,8 +165,16 @@ function showComplete() {
     voiceNav.stop();
     document.querySelector('.step-content').style.display = 'none';
     document.querySelector('.complete').style.display = 'block';
+}
 
-    autoSpeak('お疲れ様でした！これで完了です。書類を封筒に入れて返送してください。');
+/**
+ * 完了画面から前のステップに戻る
+ */
+function goBackFromComplete(navigator) {
+    voiceNav.stop();
+    document.querySelector('.complete').style.display = 'none';
+    document.querySelector('.step-content').style.display = 'block';
+    renderStep(navigator);
 }
 
 /**
