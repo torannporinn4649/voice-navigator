@@ -2,6 +2,10 @@
  * ステップナビゲーション管理
  */
 
+// ボタン連打を防ぐフラグ
+let isNavigating = false;
+const NAVIGATION_DELAY = 300; // ミリ秒
+
 class StepNavigator {
     constructor(steps) {
         this.steps = steps;
@@ -142,20 +146,30 @@ function renderStep(navigator) {
  * 次へボタン押下
  */
 function goNext(navigator) {
+    if (isNavigating) return; // 連打防止
+    isNavigating = true;
+
     voiceNav.stop();
     if (navigator.next()) {
         renderStep(navigator);
     }
+
+    setTimeout(() => { isNavigating = false; }, NAVIGATION_DELAY);
 }
 
 /**
  * 戻るボタン押下
  */
 function goPrev(navigator) {
+    if (isNavigating) return; // 連打防止
+    isNavigating = true;
+
     voiceNav.stop();
     if (navigator.prev()) {
         renderStep(navigator);
     }
+
+    setTimeout(() => { isNavigating = false; }, NAVIGATION_DELAY);
 }
 
 /**
