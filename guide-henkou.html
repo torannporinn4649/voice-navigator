@@ -20,7 +20,7 @@
         body {
             font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
             background: white;
-            color: #333;
+            color: #000;
             line-height: 1.8;
         }
 
@@ -44,8 +44,8 @@
             font-weight: bold;
             margin-bottom: 15mm;
             padding: 5mm 0;
-            border-top: 2px solid #333;
-            border-bottom: 2px solid #333;
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
         }
 
         .greeting {
@@ -59,16 +59,16 @@
         }
 
         .document-list {
-            background: #f5f5f5;
+            border: 1px solid #000;
             padding: 5mm;
             margin-bottom: 10mm;
-            border-radius: 3mm;
         }
 
         .document-list h3 {
             font-size: 12pt;
             margin-bottom: 3mm;
-            color: #333;
+            border-bottom: 1px solid #000;
+            padding-bottom: 2mm;
         }
 
         .document-list ul {
@@ -81,16 +81,16 @@
         }
 
         .request-box {
-            border: 2px solid #2196F3;
+            border: 2px solid #000;
             padding: 5mm;
             margin-bottom: 10mm;
-            border-radius: 3mm;
         }
 
         .request-box h3 {
             font-size: 12pt;
-            color: #1976D2;
             margin-bottom: 3mm;
+            border-bottom: 1px solid #000;
+            padding-bottom: 2mm;
         }
 
         .request-box ul {
@@ -103,8 +103,8 @@
         }
 
         .warning {
-            background: #FFF3E0;
-            border-left: 4px solid #FF9800;
+            border: 1px solid #000;
+            border-left: 4px solid #000;
             padding: 3mm 5mm;
             margin-bottom: 10mm;
             font-size: 10pt;
@@ -116,21 +116,19 @@
             gap: 10mm;
             margin-bottom: 10mm;
             padding: 5mm;
-            background: #E8F5E9;
-            border-radius: 3mm;
+            border: 1px solid #000;
         }
 
         .qr-code {
             width: 30mm;
             height: 30mm;
             background: white;
-            border: 1px solid #ccc;
+            border: 1px solid #000;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 8pt;
             text-align: center;
-            color: #666;
         }
 
         .qr-text {
@@ -140,11 +138,10 @@
 
         .qr-text strong {
             font-size: 11pt;
-            color: #2E7D32;
         }
 
         .return-address {
-            border: 1px solid #333;
+            border: 2px solid #000;
             padding: 5mm;
             margin-bottom: 10mm;
         }
@@ -152,7 +149,7 @@
         .return-address h3 {
             font-size: 11pt;
             margin-bottom: 3mm;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #000;
             padding-bottom: 2mm;
         }
 
@@ -161,9 +158,8 @@
         }
 
         .contact {
-            background: #ECEFF1;
+            border: 1px solid #000;
             padding: 5mm;
-            border-radius: 3mm;
             font-size: 10pt;
         }
 
@@ -216,7 +212,7 @@
         </p>
 
         <div class="document-list">
-            <h3>📄 同封書類</h3>
+            <h3>■ 同封書類</h3>
             <ul>
                 <li>委任状（文字のみ）… 1枚</li>
                 <li>委任状（表あり）… 1枚</li>
@@ -225,7 +221,7 @@
         </div>
 
         <div class="request-box">
-            <h3>✅ お願いしたいこと</h3>
+            <h3>■ お願いしたいこと</h3>
             <ul>
                 <li>委任状に <strong>住所・氏名</strong> をご記入ください</li>
                 <li><strong>実印</strong> をご捺印ください（認印は不可）</li>
@@ -234,7 +230,7 @@
         </div>
 
         <div class="warning">
-            ⚠️ <strong>ご注意</strong>：日付欄は空欄のままにしてください。こちらで記入いたします。
+            【ご注意】日付欄は空欄のままにしてください。こちらで記入いたします。
         </div>
 
         <div class="qr-section">
@@ -243,14 +239,14 @@
                 ※印刷後貼付
             </div>
             <div class="qr-text">
-                <strong>📱 記入方法がわからない場合</strong><br>
+                <strong>■ 記入方法がわからない場合</strong><br>
                 左のQRコードをスマートフォンで読み取ると、<br>
                 音声付きの記入ガイドをご覧いただけます。
             </div>
         </div>
 
         <div class="return-address">
-            <h3>📮 返送先</h3>
+            <h3>■ 返送先</h3>
             <p>
                 〒780-0822<br>
                 高知県高知市はりまや町3丁目11-10<br>
@@ -260,7 +256,7 @@
         </div>
 
         <div class="contact">
-            <h3>📞 ご不明な点がございましたら</h3>
+            <h3>■ ご不明な点がございましたら</h3>
             <p>
                 電話：080-1944-0234<br>
                 メール：info@sanjininc.com
