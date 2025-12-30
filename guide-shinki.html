@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>書類送付のご案内（新規申請）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+            background: white;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm 25mm;
+            margin: 0 auto;
+            background: white;
+        }
+
+        .header {
+            text-align: right;
+            margin-bottom: 15mm;
+            font-size: 11pt;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 18pt;
+            font-weight: bold;
+            margin-bottom: 15mm;
+            padding: 5mm 0;
+            border-top: 2px solid #333;
+            border-bottom: 2px solid #333;
+        }
+
+        .greeting {
+            margin-bottom: 10mm;
+            font-size: 11pt;
+        }
+
+        .description {
+            margin-bottom: 10mm;
+            font-size: 11pt;
+        }
+
+        .document-list {
+            background: #f5f5f5;
+            padding: 5mm;
+            margin-bottom: 10mm;
+            border-radius: 3mm;
+        }
+
+        .document-list h3 {
+            font-size: 12pt;
+            margin-bottom: 3mm;
+            color: #333;
+        }
+
+        .document-list ul {
+            margin-left: 5mm;
+            font-size: 11pt;
+        }
+
+        .document-list li {
+            margin-bottom: 2mm;
+        }
+
+        .request-box {
+            border: 2px solid #4CAF50;
+            padding: 5mm;
+            margin-bottom: 10mm;
+            border-radius: 3mm;
+        }
+
+        .request-box h3 {
+            font-size: 12pt;
+            color: #388E3C;
+            margin-bottom: 3mm;
+        }
+
+        .request-box ul {
+            margin-left: 5mm;
+            font-size: 11pt;
+        }
+
+        .request-box li {
+            margin-bottom: 2mm;
+        }
+
+        .warning {
+            background: #FFF3E0;
+            border-left: 4px solid #FF9800;
+            padding: 3mm 5mm;
+            margin-bottom: 10mm;
+            font-size: 10pt;
+        }
+
+        .qr-section {
+            display: flex;
+            align-items: center;
+            gap: 10mm;
+            margin-bottom: 10mm;
+            padding: 5mm;
+            background: #E8F5E9;
+            border-radius: 3mm;
+        }
+
+        .qr-code {
+            width: 30mm;
+            height: 30mm;
+            background: white;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8pt;
+            text-align: center;
+            color: #666;
+        }
+
+        .qr-text {
+            flex: 1;
+            font-size: 10pt;
+        }
+
+        .qr-text strong {
+            font-size: 11pt;
+            color: #2E7D32;
+        }
+
+        .return-address {
+            border: 1px solid #333;
+            padding: 5mm;
+            margin-bottom: 10mm;
+        }
+
+        .return-address h3 {
+            font-size: 11pt;
+            margin-bottom: 3mm;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 2mm;
+        }
+
+        .return-address p {
+            font-size: 11pt;
+        }
+
+        .contact {
+            background: #ECEFF1;
+            padding: 5mm;
+            border-radius: 3mm;
+            font-size: 10pt;
+        }
+
+        .contact h3 {
+            font-size: 11pt;
+            margin-bottom: 3mm;
+        }
+
+        .footer {
+            margin-top: 15mm;
+            text-align: right;
+            font-size: 11pt;
+        }
+
+        .company-name {
+            font-weight: bold;
+            font-size: 12pt;
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .page {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="header">
+            令和　　年　　月　　日
+        </div>
+
+        <h1 class="title">書類送付のご案内</h1>
+
+        <p class="greeting">
+            拝啓　時下ますますご清栄のこととお喜び申し上げます。<br>
+            平素は格別のご高配を賜り、厚く御礼申し上げます。
+        </p>
+
+        <p class="description">
+            この度、太陽光発電設備の<strong>新規届出</strong>に関する手続きのため、<br>
+            下記書類をお送りいたします。<br>
+            つきましては、ご記入・ご捺印の上、ご返送くださいますようお願い申し上げます。
+        </p>
+
+        <div class="document-list">
+            <h3>📄 同封書類</h3>
+            <ul>
+                <li>委任状 … 1枚</li>
+                <li>土地・建造物の無償使用に関する同意書 … 1枚</li>
+                <li>返信用封筒 … 1通</li>
+            </ul>
+        </div>
+
+        <div class="request-box">
+            <h3>✅ お願いしたいこと</h3>
+            <ul>
+                <li>各書類に <strong>住所・氏名</strong> をご記入ください</li>
+                <li><strong>実印</strong> をご捺印ください（認印は不可）</li>
+                <li>同封の返信用封筒にてご返送ください</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            ⚠️ <strong>ご注意</strong>：日付欄は空欄のままにしてください。こちらで記入いたします。
+        </div>
+
+        <div class="qr-section">
+            <div class="qr-code">
+                【QRコード】<br>
+                ※印刷後貼付
+            </div>
+            <div class="qr-text">
+                <strong>📱 記入方法がわからない場合</strong><br>
+                左のQRコードをスマートフォンで読み取ると、<br>
+                音声付きの記入ガイドをご覧いただけます。
+            </div>
+        </div>
+
+        <div class="return-address">
+            <h3>📮 返送先</h3>
+            <p>
+                〒780-0822<br>
+                高知県高知市はりまや町3丁目11-10<br>
+                オフィスはりまやビル2F<br>
+                <strong>株式会社エコすまいる</strong> 宛
+            </p>
+        </div>
+
+        <div class="contact">
+            <h3>📞 ご不明な点がございましたら</h3>
+            <p>
+                電話：080-1944-0234<br>
+                メール：info@sanjininc.com
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>敬具</p>
+            <p class="company-name">株式会社エコすまいる</p>
+        </div>
+    </div>
+</body>
+
+</html>
