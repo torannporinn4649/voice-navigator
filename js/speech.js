@@ -1,12 +1,14 @@
 /**
  * 音声読み上げ機能 (Web Speech API)
  * 高齢者向けにゆっくり読み上げ
- * iOS/Safari対応版
+ * iOS/Safari/Android対応版
  */
 
 class VoiceNavigator {
   constructor() {
-    this.synth = window.speechSynthesis;
+    // Web Speech APIがサポートされているか確認
+    this.isSupported = 'speechSynthesis' in window;
+    this.synth = this.isSupported ? window.speechSynthesis : null;
     this.utterance = null;
     this.isPlaying = false;
     this.rate = 0.8; // ゆっくり読み上げ
@@ -15,11 +17,23 @@ class VoiceNavigator {
     this.voice = null;
     this.audioEnabled = false; // iOS対応: ユーザー操作後に有効化
     this.pendingText = null; // 待機中のテキスト
+    this.voicesLoaded = false;
+
+    // APIがサポートされていない場合はログ出力
+    if (!this.isSupported) {
+      console.warn('Web Speech API is not supported on this device');
+    }
 
     this.init();
   }
 
   init() {
+    // APIがサポートされていない場合は初期化をスキップ
+    if (!this.isSupported) {
+      this.audioEnabled = true; // 非対応端末でもUIが動作するように
+      return;
+    }
+
     // 日本語音声を設定
     if (this.synth.onvoiceschanged !== undefined) {
       this.synth.onvoiceschanged = () => this.setJapaneseVoice();
@@ -27,7 +41,14 @@ class VoiceNavigator {
     // 即座に試行
     this.setJapaneseVoice();
 
-    // iOS対応: 最初のユーザー操作を検出
+    // Android対応: 音声リストが遅延ロードされる場合の対策
+    setTimeout(() => {
+      if (!this.voicesLoaded) {
+        this.setJapaneseVoice();
+      }
+    }, 500);
+
+    // iOS/Android対応: 最初のユーザー操作を検出
     this.setupAudioPermission();
   }
 
@@ -43,10 +64,16 @@ class VoiceNavigator {
 
     // ユーザーの最初のタップで音声を有効化
     const enableAudio = () => {
-      // ダミー発声で音声エンジンを起動（iOS対策）
-      const dummy = new SpeechSynthesisUtterance('');
-      dummy.volume = 0;
-      this.synth.speak(dummy);
+      // ダミー発声で音声エンジンを起動（iOS/Android対策）
+      try {
+        if (this.synth) {
+          const dummy = new SpeechSynthesisUtterance('');
+          dummy.volume = 0;
+          this.synth.speak(dummy);
+        }
+      } catch (e) {
+        console.warn('Failed to initialize speech synthesis:', e);
+      }
 
       this.audioEnabled = true;
       sessionStorage.setItem('audioEnabled', 'true');
@@ -75,11 +102,20 @@ class VoiceNavigator {
   }
 
   setJapaneseVoice() {
-    const voices = this.synth.getVoices();
-    // 日本語音声を優先的に選択
-    this.voice = voices.find(v => v.lang === 'ja-JP') ||
-      voices.find(v => v.lang.startsWith('ja')) ||
-      voices[0];
+    if (!this.synth) return;
+
+    try {
+      const voices = this.synth.getVoices();
+      if (voices && voices.length > 0) {
+        // 日本語音声を優先的に選択
+        this.voice = voices.find(v => v.lang === 'ja-JP') ||
+          voices.find(v => v.lang.startsWith('ja')) ||
+          voices[0];
+        this.voicesLoaded = true;
+      }
+    } catch (e) {
+      console.warn('Failed to get voices:', e);
+    }
   }
 
   /**
@@ -88,7 +124,14 @@ class VoiceNavigator {
    * @param {Function} onEnd - 読み上げ完了時のコールバック
    */
   speak(text, onEnd = null) {
-    // iOS対応: 音声が有効でなければ待機
+    // APIがサポートされていない場合は何もしない
+    if (!this.isSupported || !this.synth) {
+      console.warn('Speech synthesis not available');
+      if (onEnd) onEnd();
+      return;
+    }
+
+    // iOS/Android対応: 音声が有効でなければ待機
     if (!this.audioEnabled) {
       this.pendingText = text;
       // 許可バナーを表示
@@ -100,7 +143,11 @@ class VoiceNavigator {
     }
 
     // 既存の読み上げを完全に停止
-    this.synth.cancel();
+    try {
+      this.synth.cancel();
+    } catch (e) {
+      console.warn('Failed to cancel speech:', e);
+    }
 
     // iOS対策: cancel後に少し待ってから新しい音声を再生
     setTimeout(() => {
@@ -139,7 +186,13 @@ class VoiceNavigator {
    * 読み上げを停止
    */
   stop() {
-    this.synth.cancel();
+    if (this.synth) {
+      try {
+        this.synth.cancel();
+      } catch (e) {
+        console.warn('Failed to stop speech:', e);
+      }
+    }
     this.isPlaying = false;
     this.updatePlayButton(false);
   }

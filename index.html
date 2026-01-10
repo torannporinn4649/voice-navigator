@@ -158,22 +158,35 @@
 
     <!-- コース選択画面 -->
     <main id="courseScreen" class="screen">
-      <h2 style="text-align: center; font-size: var(--font-size-large); margin-bottom: var(--spacing-md);">
+      <h2 style="text-align: center; font-size: var(--font-size-large); margin-bottom: var(--spacing-sm);">
         どの書類が届きましたか？
       </h2>
+
+      <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: var(--spacing-sm); margin-bottom: var(--spacing-md); text-align: center;">
+        <span style="font-size: 24px;">👆</span><br>
+        <strong style="color: #856404;">書類の左上をご覧ください</strong><br>
+        <span style="font-size: 14px; color: #856404;">「変更申請」または「新規申請」と書かれています</span>
+      </div>
 
       <a href="course-a.html" class="course-card" onclick="return confirmNavigation('変更申請')">
         <div class="course-card__title">📝 変更申請</div>
         <div class="course-card__description">
-          委任状が<strong>2枚</strong>入っている書類です<br>
-          （文字だけの委任状と、表がある委任状）
+          <strong>同封書類：</strong>
+          <ul style="text-align: left; margin: 8px 0 0 20px; padding: 0;">
+            <li>委任状①（文字のみ）</li>
+            <li>委任状②（表あり）</li>
+          </ul>
         </div>
       </a>
 
       <a href="course-b.html" class="course-card" onclick="return confirmNavigation('新規申請')">
         <div class="course-card__title">📋 新規申請</div>
         <div class="course-card__description">
-          委任状と<strong>同意書</strong>が入っている書類です
+          <strong>同封書類：</strong>
+          <ul style="text-align: left; margin: 8px 0 0 20px; padding: 0;">
+            <li>委任状</li>
+            <li>同意書</li>
+          </ul>
         </div>
       </a>
 
