@@ -26,7 +26,7 @@
             <div class="step-indicator">
                 <span>ステップ</span>
                 <span class="step-indicator__current">1</span>
-                <span>/ <span class="step-indicator__total">9</span></span>
+                <span>/ <span class="step-indicator__total">11</span></span>
             </div>
 
             <!-- 音声コントロール -->
@@ -176,8 +176,8 @@
                 showWarning: false
             },
             {
-                text: '<strong>ハンコ</strong>を用意してください。<br><strong class="warning-text">実印</strong>ですか？<br><br>きれいに押せましたか？<br><br><small style="color: var(--text-secondary);">*申請毎に委任状を添付すること<br>*複数枚にわたる場合は、それぞれに署名・捩印を行うこと</small>',
-                voice: 'ハンコを用意してください。実印ですか？役所に届けた印鑑を使ってください。きれいに押せましたか？',
+                text: '<strong>ハンコ</strong>を用意してください。<br><strong class="warning-text">実印</strong>ですか？<br><br>きれいに押せましたか？<br><strong class="warning-text">かすれや欠け</strong>はありませんか？<br><br><strong>もし失敗したら、隣に押し直してください。</strong><br><br><small style="color: var(--text-secondary);">*申請毎に委任状を添付すること<br>*複数枚にわたる場合は、それぞれに署名・捩印を行うこと</small>',
+                voice: 'ハンコを用意してください。実印ですか？役所に届けた印鑑を使ってください。きれいに押せましたか？かすれや欠けはありませんか？もし失敗したら、隣に押し直してください。',
                 image: 'images/illustration_stamp.png',
                 imageAlt: '実印を押す場所',
                 showWarning: false
@@ -197,10 +197,17 @@
                 showWarning: true
             },
             {
-                text: '上部の「<strong>依頼人</strong>」と「<strong>所有者</strong>」の欄に、<br>あなたの<strong>住所・氏名</strong>を書き、<br><strong>実印</strong>を押してください。',
-                voice: '上部の依頼人と所有者の欄に、あなたの住所と氏名を書き、実印を押してください。',
+                text: '上部の「<strong>依頼人</strong>」欄を見てください。<br><br>ここには、<strong>国への申請にあたりご登録されるお名前</strong>をお書きください。<br><br>住所は<strong class="warning-text">印鑑証明書と完全に同じ</strong>ように書いてください。<br><br><strong>実印</strong>を押してください。',
+                voice: '上部の依頼人欄を見てください。ここには、国への申請にあたりご登録されるお名前をお書きください。住所は印鑑証明書と完全に同じように書いてください。そして実印を押してください。',
                 image: 'images/illustration_consent.png',
-                imageAlt: '依頼人・所有者欄',
+                imageAlt: '依頼人欄',
+                showWarning: false
+            },
+            {
+                text: '次に「<strong>所有者</strong>」欄を見てください。<br><br>ここには、<strong>この物件や土地を所有している方</strong>（個人または会社）のお名前をお書きください。<br><br>住所は<strong class="warning-text">印鑑証明書と完全に同じ</strong>ように書いてください。<br><br><strong>実印</strong>を押してください。',
+                voice: '次に所有者欄を見てください。ここには、この物件や土地を所有している方、個人または会社のお名前をお書きください。住所は印鑑証明書と完全に同じように書いてください。そして実印を押してください。',
+                image: 'images/illustration_consent.png',
+                imageAlt: '所有者欄',
                 showWarning: false
             },
             {
@@ -216,6 +223,13 @@
                 image: 'images/illustration_consent_no_write.png',
                 imageAlt: '同意期間欄は空欄',
                 showWarning: true
+            },
+            {
+                text: '<strong>最終確認</strong><br><br>以下の書類がすべて揃っているか確認してください。<br><br><div style="text-align: left; background: white; padding: 12px; border-radius: 8px; border: 2px solid var(--primary);"><label style="display: block; margin-bottom: 12px; font-size: 18px;"><input type="checkbox" style="width: 24px; height: 24px; margin-right: 8px;"> 委任状（住所・氏名・実印）</label><label style="display: block; font-size: 18px;"><input type="checkbox" style="width: 24px; height: 24px; margin-right: 8px;"> 同意書（依頼人・所有者・実印）</label></div>',
+                voice: '最終確認です。以下の書類がすべて揃っているか確認してください。委任状に住所、氏名、実印。同意書に依頼人、所有者、実印。すべて揃っていれば、次へ進んでください。',
+                image: '',
+                imageAlt: '',
+                showWarning: false
             }
         ];
 

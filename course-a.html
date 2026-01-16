@@ -26,7 +26,7 @@
             <div class="step-indicator">
                 <span>ステップ</span>
                 <span class="step-indicator__current">1</span>
-                <span>/ <span class="step-indicator__total">9</span></span>
+                <span>/ <span class="step-indicator__total">10</span></span>
             </div>
 
             <!-- 音声コントロール -->
@@ -155,8 +155,8 @@
         // コースA: 変更申請のステップ定義
         const courseASteps = [
             {
-                text: '変更申請の書類一式を出してください。<br><br>まずは、<strong>表や枠線がない、文字だけの委任状</strong>を1枚手元に置いてください。<br><br><small style="color: var(--text-secondary);">*照会案件毎に委任状を添付してください<br>*複数枚にわたる場合は、それぞれに署名・捩印を行ってください</small>',
-                voice: '変更申請の書類一式を出してください。まずは、表や枠線がない、文字だけの委任状を1枚手元に置いてください。注意事項です。照会案件毎に委任状を添付してください。複数枚にわたる場合は、それぞれに署名・なついんを行ってください。',
+                text: '変更申請の書類一式を出してください。<br><br>まずは、<strong>「委任状１」（表や枠線がない、文字だけの委任状）</strong>を手元に置いてください。<br><br><small style="color: var(--text-secondary);">*照会案件毎に委任状を添付してください<br>*複数枚にわたる場合は、それぞれに署名・捩印を行ってください</small>',
+                voice: '変更申請の書類一式を出してください。まずは、委任状１、表や枠線がない、文字だけの委任状を手元に置いてください。注意事項です。照会案件毎に委任状を添付してください。複数枚にわたる場合は、それぞれに署名・なついんを行ってください。',
                 image: 'images/illustration_document.png',
                 imageAlt: '委任状のイメージ',
                 showWarning: false
@@ -183,15 +183,15 @@
                 showWarning: false
             },
             {
-                text: 'きれいに押せましたか？<br><br><strong class="warning-text">かすれや欠け</strong>はありませんか？<br><br><small style="color: var(--text-secondary);">*照会案件毎に委任状を添付してください<br>*複数枚にわたる場合は、それぞれに署名・捩印を行ってください</small>',
-                voice: 'きれいに押せましたか？かすれや欠けはありませんか？もし失敗したら、新しい紙にやり直してください。',
+                text: 'きれいに押せましたか？<br><br><strong class="warning-text">かすれや欠け</strong>はありませんか？<br><br><strong>もし失敗したら、隣に押し直してください。</strong><br><br><small style="color: var(--text-secondary);">*照会案件毎に委任状を添付してください<br>*複数枚にわたる場合は、それぞれに署名・捩印を行ってください</small>',
+                voice: 'きれいに押せましたか？かすれや欠けはありませんか？もし失敗したら、隣に押し直してください。',
                 image: 'images/illustration_stamp.png',
                 imageAlt: '印影確認',
                 showWarning: false
             },
             {
-                text: '今の書類は置いて、<br><strong>残りのもう1枚の委任状</strong>を出してください。<br><br>真ん中に<strong>「表（枠線）」がある書類</strong>です。<br><br><small style="color: var(--text-secondary);">*照会案件毎に委任状を添付してください<br>*複数枚にわたる場合は、それぞれに署名・捩印を行ってください</small>',
-                voice: '今の書類は置いて、残りのもう1枚の委任状を出してください。真ん中に表、枠線がある書類です。',
+                text: '今の書類は置いて、<br><strong>「委任状２」（表・枠線がある委任状）</strong>を出してください。<br><br><small style="color: var(--text-secondary);">*照会案件毎に委任状を添付してください<br>*複数枚にわたる場合は、それぞれに署名・捩印を行ってください</small>',
+                voice: '今の書類は置いて、委任状２、表・枠線がある委任状を出してください。',
                 image: 'images/illustration_table.png',
                 imageAlt: '表がある委任状のイメージ',
                 showWarning: false
@@ -204,17 +204,24 @@
                 showWarning: true
             },
             {
-                text: '上の欄に、<strong>住所・氏名</strong>を書き、<br><strong>実印</strong>を押してください。',
-                voice: '上の欄に、住所と氏名を書き、実印を押してください。',
+                text: '上の欄に、<strong>住所・氏名</strong>を書き、<br><strong>実印</strong>を押してください。<br><br>住所は<strong class="warning-text">印鑑証明書と完全に同じ</strong>ように書いてください。',
+                voice: '上の欄に、住所と氏名を書き、実印を押してください。住所は印鑑証明書と完全に同じように書いてください。',
                 image: 'images/illustration_name_address.png',
                 imageAlt: '住所・氏名・捺印欄',
                 showWarning: false
             },
             {
-                text: '真ん中にある「対象事業計画」という<strong>表</strong>を見てください。<br><br><strong class="warning-text">ここは何も書かないでください。</strong><br>全て空欄のままでOKです。',
-                voice: '真ん中にある対象事業計画という表を見てください。ここは何も書かないでください。全て空欄のままでオーケーです。',
+                text: '真ん中にある「対象事業計画」という<strong>表</strong>を見てください。<br><br>表の中の<strong>「設備ID」</strong>欄に、<strong class="warning-text">設備ID</strong>をお書きください。<br><br><small style="color: var(--text-secondary);">※設備IDが不明の場合、ご契約の電力会社にお問い合わせください</small>',
+                voice: '真ん中にある対象事業計画という表を見てください。表の中の設備ID欄に、設備IDをお書きください。設備IDが不明の場合は、ご契約の電力会社にお問い合わせください。',
                 image: 'images/illustration_table.png',
-                imageAlt: '表は空欄のまま',
+                imageAlt: '設備IDを記入',
+                showWarning: false
+            },
+            {
+                text: '<strong>最終確認</strong><br><br>以下の書類がすべて揃っているか確認してください。<br><br><div style="text-align: left; background: white; padding: 12px; border-radius: 8px; border: 2px solid var(--primary);"><label style="display: block; margin-bottom: 12px; font-size: 18px;"><input type="checkbox" style="width: 24px; height: 24px; margin-right: 8px;"> 委任状１（住所・氏名・実印）</label><label style="display: block; font-size: 18px;"><input type="checkbox" style="width: 24px; height: 24px; margin-right: 8px;"> 委任状２（住所・氏名・実印・設備ID）</label></div>',
+                voice: '最終確認です。以下の書類がすべて揃っているか確認してください。委任状１に住所、氏名、実印。委任状２に住所、氏名、実印、設備ID。すべて揃っていれば、次へ進んでください。',
+                image: '',
+                imageAlt: '',
                 showWarning: false
             }
         ];
