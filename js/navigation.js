@@ -118,6 +118,7 @@ function renderStep(navigator) {
         } else {
             nextBtn.textContent = '次へ →';
             nextBtn.classList.remove('btn--success');
+            nextBtn.onclick = () => goNext(navigator);
         }
     }
 
