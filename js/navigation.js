@@ -93,11 +93,7 @@ function renderStep(navigator) {
         if (placeholder) placeholder.style.display = 'none';
     } else {
         if (contentImage) contentImage.style.display = 'none';
-        if (placeholder) {
-            placeholder.style.display = 'flex';
-            placeholder.querySelector('.placeholder-image__text').textContent =
-                step.imagePlaceholder || '画像を挿入予定';
-        }
+        if (placeholder) placeholder.style.display = 'none';
     }
 
     // 警告バッジ
